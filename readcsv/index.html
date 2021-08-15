@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read CSV files with javascript fetch method</title>
+    <style>
+        td {
+            border: 2px solid blue;
+        }
+    </style>
+</head>
+<body>
+    <table>
+
+    </table>
+    <script>
+        onload = fetch("./test.csv").then(res => {
+            return res.text()
+        }).then(data => {
+            let result = data.split(/\r?\n|\r/).map(e => {
+                return e.split(",")
+            })
+            result.forEach(e => {
+                let m = e.map(e => {
+                    return `<td>${e}</td>`;
+                }).join("")
+                let ce = document.createElement("tr");
+                ce.innerHTML = m;
+                if (ce.innerText != "") {
+                    document.querySelector("table").appendChild(ce);
+                }
+                // console.log(m);
+
+            })
+        })
+    </script>
+</body>
+</html>
